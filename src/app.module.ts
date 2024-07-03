@@ -1,10 +1,22 @@
+// src/app.module.ts
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // makes ConfigModule available application-wide
+    }),
+    MongooseModule.forRoot("mongodb+srv://nitinshukla:3v12PsVCjHEJPq0W@cluster0.hwwk7wt.mongodb.net/intro"),
+    UsersModule,
+    AuthModule,
+    ProductsModule
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
