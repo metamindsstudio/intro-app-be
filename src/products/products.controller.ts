@@ -1,5 +1,5 @@
 // src/products/products.controller.ts
-import { Controller, Get, Post, Body, Param, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query, UseGuards, Request } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -10,7 +10,6 @@ import { Roles } from '../auth/decorators/roles.decorator';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) { }
   
-  
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('seller', 'both')
@@ -20,8 +19,8 @@ export class ProductsController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  findAll() {
-    return this.productsService.findAll();
+  findAll(@Query() query: any) {
+    return this.productsService.findAll(query);
   }
 
   @Get(':id')

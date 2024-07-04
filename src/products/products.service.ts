@@ -21,8 +21,34 @@ export class ProductsService {
     return createdProduct.save();
   }
 
-  async findAll(): Promise<Product[]> {
-    return this.productModel.find().exec();
+  async findAll(query: any): Promise<Product[]> {
+    const filter: any = {};
+    
+    if (query.location) {
+      filter.location = query.location;
+    }
+    
+    if (query.category) {
+      filter.a = query.category;
+    }
+
+    if (query.subCategories) {
+      filter.subCategories = query.subCategories;
+    }
+
+    if (query.price) {
+      filter.price = query.price;
+    }
+
+    if (query.industry) {
+      filter.industry = query.industry;
+    }
+
+    if (query.isReviewed) {
+      filter.isReviewed = query.isReviewed;
+    }
+    
+    return this.productModel.find(filter).exec();
   }
 
   async findOne(id: string): Promise<Product> {
