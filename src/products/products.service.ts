@@ -16,6 +16,7 @@ export class ProductsService {
     const createdProduct = new this.productModel({
       ...createProductDto,
       seller: seller,
+      isReviewed: false, // Set default value
     });
     return createdProduct.save();
   }

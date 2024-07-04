@@ -8,13 +8,13 @@ import { Roles } from '../auth/decorators/roles.decorator';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
-
+  constructor(private readonly productsService: ProductsService) { }
+  
+  
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('seller', 'both')
   create(@Body() createProductDto: CreateProductDto, @Request() req) {
-    console.log(req)
     return this.productsService.create(createProductDto, req.user);
   }
 

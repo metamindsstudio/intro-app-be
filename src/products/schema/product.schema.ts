@@ -8,13 +8,28 @@ export type ProductDocument = Product & Document;
 @Schema()
 export class Product {
   @Prop({ required: true })
-  name: string;
+  productTitle: string;
+
+  @Prop()
+  category: string;
+
+  @Prop()
+  subCategories: string;
 
   @Prop({ required: true })
   description: string;
 
-  @Prop({ required: true })
+  @Prop()
   price: number;
+
+  @Prop()
+  location: string;
+
+  @Prop()
+  industry: string;
+
+  @Prop()
+  isReviewed: boolean;
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   seller: User;
