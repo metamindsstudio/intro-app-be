@@ -1,22 +1,29 @@
-// src/users/schemas/user.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export type UserDocument = User & Document;
 
 @Schema()
 export class User {
+
+  @Prop({ type: Types.ObjectId,  })
+  _id: string;
+
+  
   @Prop({ required: true, unique: true })
   email: string;
 
   @Prop({ required: true })
   password: string;
 
-  @Prop({ enum: ['buyer', 'seller', 'both'], default: 'both' })
-  role: string;
+  @Prop({ required: true })
+  name: string;
 
-  @Prop({ default: Date.now })
-  createdAt: Date;
+  @Prop({ required: true, unique: true })
+  phoneNumber: string;
+
+  @Prop({ default: false })
+  isSeller: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
