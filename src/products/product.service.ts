@@ -31,8 +31,14 @@ export class ProductsService {
     return this.productModel.find(filters).populate(['seller']).exec();
   }
 
-  async findBySeller(userId: string): Promise<Product[]> {
-    console.log(userId,)
-    return this.productModel.find({ seller: userId }).exec();
+  async findBySeller(userId: string, query: { category?: string, city?: string }): Promise<Product[]> {
+    const filters: any = { seller: userId };
+    if (query.category) {
+      filters.category = query.category;
+    }
+    if (query.city) {
+      filters.location = query.city;
+    }
+    return this.productModel.find(filters).populate(['seller']).exec();
   }
 }

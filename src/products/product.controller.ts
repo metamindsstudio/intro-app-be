@@ -24,8 +24,7 @@ export class ProductsController {
 
   @UseGuards(JwtAuthGuard)
   @Get('my-products')
-  async findBySeller(@Request() req) {
-    console.log(req.user)
-    return this.productsService.findBySeller(req.user._id);
+  async findBySeller(@Request() req, @Query('category') category?: string, @Query('city') city?: string) {
+    return this.productsService.findBySeller(req.user._id, { category, city });
   }
 }
