@@ -1,5 +1,5 @@
 // src/products/products.controller.ts
-import { Controller, Get, Post, Body, UseGuards, Request, UnauthorizedException } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Request, UnauthorizedException, Query } from '@nestjs/common';
 import { ProductsService } from './product.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -20,8 +20,9 @@ export class ProductsController {
   }
 
   @Get()
-  async findAll() {
-    return this.productsService.findAll();
+  @Get()
+  async findAll(@Query('category') category?: string, @Query('city') city?: string) {
+    return this.productsService.findAll({ category, city });
   }
 
   @UseGuards(JwtAuthGuard)

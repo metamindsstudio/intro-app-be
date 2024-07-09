@@ -1,14 +1,15 @@
 // src/products/dto/create-product.dto.ts
-import { IsString, IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsNumber, IsEnum } from 'class-validator';
+import { Categories } from '../schemas/product.schema';
 
 export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   productTitle: string;
 
-  @IsString()
+  @IsEnum(Categories)
   @IsOptional()
-  category: string;
+  category: Categories;
 
   @IsString()
   @IsOptional()

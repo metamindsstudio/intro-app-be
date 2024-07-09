@@ -5,13 +5,18 @@ import { User } from '../../users/schema/user.schema'
 
 export type ProductDocument = Product & Document;
 
+export enum Categories {
+  PLANTS_AND_MACHINERIES = 'Plants & Machineries',
+  PLOTS = 'Plots',
+}
+
 @Schema()
 export class Product {
   @Prop({ required: true })
   productTitle: string;
 
-  @Prop()
-  category: string;
+  @Prop({ type: String, enum: Categories })
+  category: Categories;
 
   @Prop()
   subCategories: string;

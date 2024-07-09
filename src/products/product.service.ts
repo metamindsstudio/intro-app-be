@@ -11,7 +11,6 @@ export class ProductsService {
   constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) {}
 
   async create(createProductDto: CreateProductDto, user: User): Promise<Product> {
-    console.log(user,">>user")
     const createdProduct = new this.productModel({
       ...createProductDto,
       seller: user,
@@ -19,10 +18,17 @@ export class ProductsService {
     return createdProduct.save();
   }
 
-  async findAll(): Promise<Product[]> {
-    return this.productModel.find().populate('seller').exec();
+  async findAll(query: { category?: string, city?: string }): Promise<Product[]> {
+    const filters: any = {};
+    if (query.category) {
+      filters.category = query.category;
+    }
+    if (query.city) {
+      filters.location = query.city;
+    }
+    return this.productModel.find(filters).populate('seller').exec();
   }
-
+  
   async findBySeller(userId: string): Promise<Product[]> {
     return this.productModel.find({ seller: userId }).exec();
   }
