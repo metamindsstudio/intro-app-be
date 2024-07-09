@@ -10,12 +10,12 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Patch('status')
   async updateStatus(@Request() req, @Body() updateUserStatusDto: UpdateUserStatusDto) {
-    return this.usersService.updateStatus(req.user.userId, updateUserStatusDto);
+    return this.usersService.updateStatus(req.user._id, updateUserStatusDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
   async getUserDetails(@Request() req) {
-    return this.usersService.findUserById(req.user.userId);
+    return this.usersService.findUserById(req.user._id);
   }
 }
