@@ -10,7 +10,9 @@ import { UserDocument } from '../users/schema/user.schema'; // Import UserDocume
 export class ProductsService {
   constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) {}
 
-  async create(createProductDto: CreateProductDto, user: UserDocument): Promise<Product> { // Use UserDocument
+  async create(createProductDto: CreateProductDto, user: UserDocument): Promise<Product> {
+    // Use UserDocument
+    console.log(user,">>userrr")
     const createdProduct = new this.productModel({
       ...createProductDto,
       seller: user._id, // _id is now recognized
@@ -26,10 +28,11 @@ export class ProductsService {
     if (query.city) {
       filters.location = query.city;
     }
-    return this.productModel.find(filters).populate('seller').exec();
+    return this.productModel.find(filters).exec();
   }
 
   async findBySeller(userId: string): Promise<Product[]> {
+    console.log(userId,)
     return this.productModel.find({ seller: userId }).exec();
   }
 }
