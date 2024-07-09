@@ -17,12 +17,12 @@ export class FavoritesController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async findAllByUser(@Request() req) {
-    return this.favoritesService.findAllByUser(req.user.userId);
+    return this.favoritesService.findAllByUser(req.user._id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':productId')
   async remove(@Request() req, @Param('productId') productId: string) {
-    return this.favoritesService.remove(req.user.userId, productId);
+    return this.favoritesService.remove(req.user._id, productId);
   }
 }
