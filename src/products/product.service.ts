@@ -28,7 +28,7 @@ export class ProductsService {
     if (query.city) {
       filters.location = query.city;
     }
-    return this.productModel.find(filters).exec();
+    return this.productModel.find(filters).populate(['seller']).exec();
   }
 
   async findBySeller(userId: string): Promise<Product[]> {
