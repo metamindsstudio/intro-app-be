@@ -36,8 +36,9 @@ export class Product {
   @Prop()
   isReviewed: boolean;
 
+  
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  seller: User;
+  seller: Types.ObjectId;
 
   @Prop({ default: Date.now })
   createdAt: Date;

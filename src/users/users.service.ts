@@ -21,4 +21,8 @@ export class UsersService {
   async updateStatus(userId: string, updateUserStatusDto: UpdateUserStatusDto): Promise<User> {
     return this.userModel.findByIdAndUpdate(userId, updateUserStatusDto, { new: true }).lean().exec();
   }
+
+  async findUserById(userId: string): Promise<User | undefined> {
+    return this.userModel.findById(userId).lean().exec();
+  }
 }

@@ -4,16 +4,16 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Favorite, FavoriteDocument } from './schema/favorites.schema';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
-import { User } from '../users/schema/user.schema';
+import { User, UserDocument } from '../users/schema/user.schema';
 
 @Injectable()
 export class FavoritesService {
   constructor(@InjectModel(Favorite.name) private favoriteModel: Model<FavoriteDocument>) {}
 
-    async create(createFavoriteDto: CreateFavoriteDto, user: User): Promise<Favorite> {
+    async create(createFavoriteDto: CreateFavoriteDto, user: UserDocument): Promise<Favorite> {
 
     const favorite = new this.favoriteModel({
-      user: user.userId,
+      user: user._id,
       product: createFavoriteDto.productId,
     });
     return favorite.save();

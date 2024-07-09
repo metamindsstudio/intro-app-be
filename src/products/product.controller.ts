@@ -1,14 +1,13 @@
 // src/products/products.controller.ts
-import { Controller, Get, Post, Body, UseGuards, Request, UnauthorizedException, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Request, Query, UnauthorizedException } from '@nestjs/common';
 import { ProductsService } from './product.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateProductDto } from './dto/create-product.dto';
-import {User} from "../users/schema/user.schema"
 
 @Controller('products')
 export class ProductsController {
-  constructor(private productsService: ProductsService) { }
-  
+  constructor(private productsService: ProductsService) {}
+
   @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createProductDto: CreateProductDto, @Request() req) {

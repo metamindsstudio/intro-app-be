@@ -1,20 +1,19 @@
 // src/products/products.service.ts
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product, ProductDocument } from './schemas/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
-import { User } from '../users/schema/user.schema'
+import { UserDocument } from '../users/schema/user.schema'; // Import UserDocument
 
 @Injectable()
 export class ProductsService {
   constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) {}
 
-
-  async create(createProductDto: CreateProductDto, user: User): Promise<Product> {
+  async create(createProductDto: CreateProductDto, user: UserDocument): Promise<Product> { // Use UserDocument
     const createdProduct = new this.productModel({
       ...createProductDto,
-      seller: user.userId, 
+      seller: user._id, // _id is now recognized
     });
     return createdProduct.save();
   }
