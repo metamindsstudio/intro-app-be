@@ -7,7 +7,7 @@ export type UserDocument = User & Document;
 export class User {
 
   @Prop({ type: Types.ObjectId,  })
-  _id: string;
+  userId: string;
 
   
   @Prop({ required: true, unique: true })

@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/product.module';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { ProductsModule } from './products/product.module';
     MongooseModule.forRoot("mongodb+srv://nitinshukla:3v12PsVCjHEJPq0W@cluster0.hwwk7wt.mongodb.net/intro"),
     UsersModule,
     AuthModule,
-    ProductsModule
+    ProductsModule,
+    FavoritesModule,
   ],
   controllers: [],
   providers: [],
