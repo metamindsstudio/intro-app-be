@@ -10,10 +10,11 @@ import { User } from '../users/schema/user.schema'
 export class ProductsService {
   constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) {}
 
+
   async create(createProductDto: CreateProductDto, user: User): Promise<Product> {
     const createdProduct = new this.productModel({
       ...createProductDto,
-      seller: user,
+      seller: user.userId, 
     });
     return createdProduct.save();
   }
@@ -28,7 +29,7 @@ export class ProductsService {
     }
     return this.productModel.find(filters).populate('seller').exec();
   }
-  
+
   async findBySeller(userId: string): Promise<Product[]> {
     return this.productModel.find({ seller: userId }).exec();
   }

@@ -6,6 +6,10 @@ export type UserDocument = User & Document;
 @Schema()
 export class User {
 
+  @Prop({ type: Types.ObjectId })
+  _id: string;
+
+
   @Prop({ type: Types.ObjectId,  })
   userId: string;
 
